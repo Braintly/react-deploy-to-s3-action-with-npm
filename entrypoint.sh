@@ -46,7 +46,6 @@ NODE_ENV_PREPEND="NODE_ENV=${NODE_ENV:-production}"
 sh -c "yarn" \
 && sh -c "${NODE_ENV_PREPEND} CI=false yarn build" \
 && sh -c "aws s3 sync ${SOURCE_DIR:-public} s3://${AWS_S3_BUCKET}/${DEST_DIR} \
-              --profile react-deploy-to-s3-action \
               --no-progress \
               ${ENDPOINT_APPEND} $*"
 SUCCESS=$?
@@ -65,12 +64,12 @@ fi
 # We need to re-run `aws configure` with bogus input instead of
 # deleting ~/.aws in case there are other credentials living there.
 # https://forums.aws.amazon.com/thread.jspa?threadID=148833
-aws configure --profile s3-sync-action <<-EOF > /dev/null 2>&1
-null
-null
-null
-text
-EOF
+#aws configure --profile s3-sync-action <<-EOF > /dev/null 2>&1
+#null
+#null
+#null
+#text
+#EOF
 
 if [ $SUCCESS -eq 0 ]
 then
