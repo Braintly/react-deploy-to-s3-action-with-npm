@@ -44,7 +44,7 @@ NODE_ENV_PREPEND="NODE_ENV=${NODE_ENV:-production}"
 # - Sync using our dedicated profile and suppress verbose messages.
 #   All other flags are optional via the `args:` directive.
 sh -c "npm i" \
-&& sh -c "${NODE_ENV_PREPEND} CI=false npm build" \
+&& sh -c "${NODE_ENV_PREPEND} CI=false npm run build" \
 && sh -c "aws s3 sync ${SOURCE_DIR:-public} s3://${AWS_S3_BUCKET}/${DEST_DIR} \
               --no-progress \
               ${ENDPOINT_APPEND} $*"
